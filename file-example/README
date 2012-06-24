@@ -1,0 +1,8 @@
+To run example:
+
+mvn camel:run
+
+Files in src\data will be routed to either target\messages\uk or target\messages\other 
+based on the city specified in the xml.
+
+Drop another file into src\data, and see that it will be processed immediately.
