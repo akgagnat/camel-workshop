@@ -1,0 +1,4 @@
+To run example:
+
+mvn camel:run
+

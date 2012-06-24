@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:tns="http://echoservice.steria.no" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	targetNamespace="http://echoservice.steria.no">
+
+	<wsdl:types>
+		<xs:schema targetNamespace="http://echoservice.steria.no">
+			<xs:element name="inputEchoService">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element type="xs:string" name="givenName" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="outputEchoService">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element type="xs:string" name="code" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:schema>
+	</wsdl:types>
+
+	<wsdl:message name="inputEchoService">
+		<wsdl:part name="in" element="tns:inputEchoService" />
+	</wsdl:message>
+	<wsdl:message name="outputEchoService">
+		<wsdl:part name="out" element="tns:outputEchoService" />
+	</wsdl:message>
+
+	<wsdl:portType name="EchoServiceEndpoint">
+		<wsdl:operation name="EchoService">
+			<wsdl:input message="tns:inputEchoService" />
+			<wsdl:output message="tns:outputEchoService" />
+		</wsdl:operation>
+	</wsdl:portType>
+
+	<wsdl:binding name="EchoServiceBinding" type="tns:EchoServiceEndpoint">
+		<soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsdl:operation name="EchoService">
+			<soap:operation soapAction="http://echoservice.steria.no/EchoService"
+				style="document" />
+			<wsdl:input>
+				<soap:body parts="in" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body parts="out" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+
+	<wsdl:service name="EchoService">
+		<wsdl:port name="EchoServiceEndpoint" binding="tns:EchoServiceBinding">
+			<soap:address location="http://localhost:8088/services/echoservice" />
+		</wsdl:port>
+	</wsdl:service>
+
+</wsdl:definitions>
